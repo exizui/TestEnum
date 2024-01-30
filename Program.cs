@@ -7,9 +7,10 @@ namespace Test2024
         {
             while (true)
             {
-                Console.WriteLine("Нажми WASD или Spacebar");
+                Console.WriteLine("Tap WASD or Spacebar");
                 KeyController keycontroller = new KeyController();
-                keycontroller.KeyScan();
+                Player player = new Player();
+                keycontroller.GetProperty(player);
             }
            
         }    

@@ -10,11 +10,11 @@ namespace Test2024
     { 
         public void Move() 
         {
-            Console.WriteLine("\nДвигаюсь!");
+            Console.WriteLine("\nMoving!");
         }
         public void Jump()
         {
-            Console.WriteLine("\nПрыгаю!");
+            Console.WriteLine("+Jumping!");
         }
     }
 }

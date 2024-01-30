@@ -8,38 +8,18 @@ namespace Test2024
 {
     public class KeyController
     {
-        public static ConsoleKey[] keys = new ConsoleKey[5];
         public enum DirectMovement
         {
             Upward, Forward, Backward, Rightward, Leftward
         }
-        public KeyController()
+
+        public enum KeyMove
         {
-            keys[0] = ConsoleKey.Spacebar;
-            keys[1] = ConsoleKey.W;
-            keys[2] = ConsoleKey.S;
-            keys[3] = ConsoleKey.D;
-            keys[4] = ConsoleKey.A;
-        }
-
-        public void KeyScan()
-        {
-            Player player = new Player();
-            ConsoleKeyInfo keyInfo = Console.ReadKey();
-
-            foreach (var key in keys)
-            {
-                if (keyInfo.Key == key)
-                {
-                    player.Move();
-                    break;
-                }
-            }
-
-            if (keyInfo.Key == keys[4])
-                player.Jump();
-
-            GetProperty(keyInfo);
+            A = 65,
+            D = 68,
+            S = 83,
+            W = 87,
+            Space = 32
         }
 
         DirectMovement directUp = (DirectMovement)0;
@@ -49,33 +29,43 @@ namespace Test2024
         DirectMovement directA = (DirectMovement)4;
 
         
-        private void GetProperty(ConsoleKeyInfo key)
-        {
-            Console.Write("направление движения: ");
-            if (key.Key == keys[0])
-            {
-                Console.WriteLine(directUp);
-            }
-            else if (key.Key == keys[1])
-            {              
-                Console.WriteLine(directW);
-            }
-            else if(key.Key == keys[2])
-            {
-                Console.WriteLine(directS);
-            }
-            else if(key.Key == keys[3])
-            {
-                Console.WriteLine(directD);
-            }
-            else if(key.Key == keys[4])
-            {
-                Console.WriteLine(directA);
-            }
-            
-         
-        }
+        public void GetProperty(Player player)
+        {           
+            KeyMove keyMove = (KeyMove)Console.ReadKey().Key;
 
-        
+            foreach (KeyMove move in Enum.GetValues(typeof(KeyMove)))
+            {
+                //Console.WriteLine($"Енум: {move}, Значення: {(int)move}");
+                if(keyMove == move)
+                {
+                    player.Move();
+                   if (keyMove == KeyMove.Space) { player.Jump(); }
+                }
+               
+            }
+            Console.Write("DirectMovement:");
+            switch (keyMove)
+            {
+                case KeyMove.W:
+                    Console.WriteLine(directW);
+                    break;
+                case KeyMove.A:
+                    Console.WriteLine(directA);
+                    break;
+                case KeyMove.S:
+                    Console.WriteLine(directS);
+                    break;
+                case KeyMove.D:
+                    Console.WriteLine(directD);
+                    break;
+                case KeyMove.Space:
+                    Console.WriteLine(directUp);
+                   // player.Jump();
+                    break;
+                default:
+                    Console.WriteLine("Wrong Key!");
+                    break;
+            }
+        }
     }
 }
